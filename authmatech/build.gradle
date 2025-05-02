@@ -93,19 +93,15 @@ afterEvaluate {
             }
         }
     }
+
+    signing {
+        useInMemoryPgpKeys(
+                findProperty("signing.keyId"),
+                findProperty("signing.key"),
+                findProperty("signing.password")
+        )
+        sign publishing.publications["authmatech"]
+    }
 }
-
-
 
 apply from: "$projectDir/ktlint.gradle"
-
-apply plugin: 'signing'
-
-signing {
-    useInMemoryPgpKeys(
-            findProperty("signing.keyId"),
-            findProperty("signing.key"),
-            findProperty("signing.password")
-    )
-    sign publishing.publications.authmatech
-}
