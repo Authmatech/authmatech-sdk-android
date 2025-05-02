@@ -1,0 +1,75 @@
+# =========================
+# Android SDK Project
+# =========================
+
+# Build and Gradle
+.gradle/
+build/
+**/build/
+
+# Local configuration (do not share SDK paths)
+local.properties
+
+# IDE Files (Android Studio / IntelliJ)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Android-specific generated files
+captures/
+.externalNativeBuild/
+.cxx/
+output.json
+*.apk
+*.ap_
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*.log
+
+# Signing / security
+*.jks
+*.keystore
+*.pem
+*.p12
+*.key
+*.crt
+
+# Firebase / Google services
+google-services.json
+fabric.properties
+
+# Profiling
+*.hprof
+
+# Kotlin build
+kotlin/
+
+# Jetpack Compose preview cache
+.compose-cache/
+
+# Local test results
+test-output/
+
+# Dependency caches
+/.gradle/
+/build/
+/node_modules/
+
+# IDE state configs
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# NDK
+.obj/
+
+# Crashlytics (if used)
+crashlytics-build.properties

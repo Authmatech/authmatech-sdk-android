@@ -1,0 +1,2 @@
+rootProject.name = "authmatech-sdk-android"
+include ':authmatech'

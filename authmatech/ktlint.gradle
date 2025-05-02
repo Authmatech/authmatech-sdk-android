@@ -1,0 +1,39 @@
+// ✅ ktlint.gradle (for root or app-level)
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+configurations {
+    ktlint
+}
+
+ext.ktlintVersion = "0.50.0"
+
+dependencies {
+    ktlint "com.pinterest:ktlint:$ktlintVersion"
+}
+
+def kotlinSources = fileTree(dir: "src", include: "**/*.kt")
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args kotlinSources.files
+}
+
+
+check.dependsOn ktlint
+
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args = ["-F"] + kotlinSources.files
+    jvmArgs = ["--add-opens=java.base/java.lang=ALL-UNNAMED"]
+}
+    
