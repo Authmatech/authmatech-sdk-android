@@ -73,3 +73,5 @@ fastlane/screenshots
 
 # Crashlytics (if used)
 crashlytics-build.properties
+private.gpg
+private.gpg.b64
