@@ -44,21 +44,22 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
-
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                from components.release
+            register("authmatech", MavenPublication) {
+                if (components.findByName("release") != null) {
+                    from components.release
+                }
 
-                groupId = 'com.authmatech.sdk'
+                groupId = 'com.authmatech'
                 artifactId = 'authmatech-sdk-android'
                 version = '1.0.0'
 
                 pom {
                     name.set("Authmatech Mobile Identity SDK")
                     description.set("Authmatech SDK for Android enables mobile detection over mobile data through mobile network operator (MNO), designed for seamless integration by developers and clients.")
-                    url.set("https://github.com/authmatech/authmatech-sdk-android")
+                    url.set("https://github.com/Authmatech/authmatech-sdk-android")
                     licenses {
                         license {
                             name.set("MIT License")
@@ -68,13 +69,39 @@ afterEvaluate {
                     developers {
                         developer {
                             id.set("authmatech-team")
-                            name.set("Authmatech SDK Team")
+                            name.set("Authmatech Team")
                             email.set("support@authmatech.com")
                         }
+                    }
+                    scm {
+                        url.set("https://github.com/Authmatech/authmatech-sdk-android")
+                        connection.set("scm:git:git://github.com/Authmatech/authmatech-sdk-android.git")
+                        developerConnection.set("scm:git:ssh://github.com:Authmatech/authmatech-sdk-android.git")
                     }
                 }
             }
         }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME")
+                    password = findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD")
+                }
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(
+                findProperty("signing.keyId"),
+                findProperty("signing.key"),
+                findProperty("signing.password")
+        )
+        sign publishing.publications["authmatech"]
     }
 }
+
 apply from: "$projectDir/ktlint.gradle"
